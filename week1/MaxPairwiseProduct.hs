@@ -1,7 +1,6 @@
 main :: IO ()
 main = do
-    n <- getLine
-    let n' = read n :: Int
+    _ <- getLine
     nums <- getLine
     let nums' = [read x :: Int | x <- words nums]
     print $ maxPairwiseProductFast nums'

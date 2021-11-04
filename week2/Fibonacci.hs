@@ -4,24 +4,22 @@ import Control.Exception (assert)
 
 main :: IO ()
 main = do
-  [w] <- fmap words getLine
-  let n = read w
-  print $ fibonacciFast n
+    [w] <- fmap words getLine
+    let n = read w
+    print $ fibFast n
 
 testSolution :: IO ()
 testSolution = and tests `seq` return ()
-  where
-    tests =
-      [ assert (fibonacciFast 3  == 2)  True
-      , assert (fibonacciFast 10 == 55) True
-      ] ++ map (\i -> assert (fibonacciFast i == fibonacciNaive i) True) [0..20]
+    where
+        tests = [assert (fibFast 3 == 2) True, assert (fibFast 10 == 55) True] 
+                ++ map (\i -> assert (fibFast i == fibNaive i) True) [0..20]
 
-fibonacciFast :: Int -> Int
-fibonacciFast = (!!) fibs
+fibFast :: Int -> Int
+fibFast = (!!) fibs
     where fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
 
 -- Naive solution for comparison
-fibonacciNaive :: Int -> Int
-fibonacciNaive 0 = 0
-fibonacciNaive 1 = 1
-fibonacciNaive n = fibonacciNaive (n - 1) + fibonacciNaive (n - 2)
+fibNaive :: Int -> Int
+fibNaive 0 = 0
+fibNaive 1 = 1
+fibNaive n = fibNaive (n - 1) + fibNaive (n - 2)
